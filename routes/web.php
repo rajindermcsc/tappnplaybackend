@@ -39,12 +39,12 @@ Route::group([ 'middleware' => ['auth'], 'prefix'=>'admin' ], function () {
 
 
       // Advertisement Routes Admin
-    Route::get('advertisements', 'Admin\AdvertisementController@index')->name('admin.ads');
-    Route::get('advertisement/create', "Admin\AdvertisementController@create")->name('admin.ads.create');
-    Route::post('advertisement/store', "Admin\AdvertisementController@store")->name('admin.ads.store');
-    Route::get('advertisement/edit/{id}', "Admin\AdvertisementController@edit")->name('admin.ads.edit');
-    Route::post('advertisement/update/{id}', "Admin\AdvertisementController@update")->name('admin.ads.update');;
-    Route::get('advertisement/destroy/{id}', "Admin\AdvertisementController@destroy")->name('admin.ads.destroy');
+    Route::get('advertisements', 'Admin\AdvertisementController@index')->name('admin.adds');
+    Route::get('advertisement/create', "Admin\AdvertisementController@create")->name('admin.adds.create');
+    Route::post('advertisement/store', "Admin\AdvertisementController@store")->name('admin.adds.store');
+    Route::get('advertisement/edit/{id}', "Admin\AdvertisementController@edit")->name('admin.adds.edit');
+    Route::post('advertisement/update/{id}', "Admin\AdvertisementController@update")->name('admin.adds.update');;
+    Route::get('advertisement/destroy/{id}', "Admin\AdvertisementController@destroy")->name('admin.adds.destroy');
 
 });
 

@@ -1,0 +1,85 @@
+@extends('adminlte::page')
+@section('content')
+<div class="row justify-content-center">
+<div class="col-md-8">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Add Advertiement</h3>
+              </div>
+              <!-- /.card-header --> 
+              <!-- form start -->
+              <form action="{{route('admin.adds.store')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter title">
+                    @error('title')
+                      <p class="error">{{ $message }}</p>
+                    @enderror     
+                  </div>
+                  <div class="form-group">
+                    <label for="link">Advertisement Link (URL):</label>
+                    <input type="link" class="form-control" name="link" placeholder="Enter link">
+                    @error('link')
+                      <p class="error">{{ $message }}</p>
+                    @enderror
+                  </div>
+
+                  <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea name="description" class="form-control"></textarea>
+                    @error('description')
+                      <p class="error">{{ $message }}</p>
+                    @enderror
+                  </div>
+
+                  <div class="form-group">
+                    <label for="image">Advertisement Image:</label>
+                    <input type="file" class="form-control" name="image">
+                     @error('image')
+                    <p class="error">{{ $message }}</p>
+                     @enderror
+                  </div>
+                  <div class="form-group">
+                    <img id="preview" src="http://placehold.it/180" 
+                      alt="preview image" style="max-height: 250px;">
+                  </div>
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>  
+          </div>
+        </div> 
+
+           <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+ 
+            <script type="text/javascript">
+      
+              $(document).ready(function (e) {
+ 
+   
+              $('#avatar').change(function(){
+            
+                   let reader = new FileReader();
+ 
+                       reader.onload = (e) => { 
+ 
+                     $('#preview').attr('src', e.target.result); 
+                                             }
+ 
+                     reader.readAsDataURL(this.files[0]); 
+   
+                         });
+   
+                        });
+ 
+              </script>
+
+          @stop

@@ -258,7 +258,7 @@ return [
         ],
         [
             'text'        => 'Advertisements',
-            'url'         => 'admin/pages',
+            'url'         => 'admin/advertisements',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success'
         ],
