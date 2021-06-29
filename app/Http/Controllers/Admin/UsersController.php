@@ -151,4 +151,29 @@ class UsersController extends Controller
             return redirect()->route('admin.users')->with('error' , "Record not deleted");
         }
     }
+
+    public function active(Request $request)
+    { 
+         $data = $request->all();
+         $id = $data['id'];
+          // print_r($id);die();
+       
+    }
+
+     public function verified(Request $request)
+    { 
+         $verify = $request->all();
+         $id = $verify['id'];
+          // print_r($id);die();
+       
+    }
+
+
+     public function approved(Request $request)
+    { 
+         $approve = $request->all();
+         $id = $approve['id'];
+          print_r($id);die();
+       
+    }    
 }

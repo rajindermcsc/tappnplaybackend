@@ -263,8 +263,8 @@ return [
             'label_color' => 'success'
         ],
         [
-            'text'        => 'Subscription Management',
-            'url'         => 'admin/subscriptions',
+            'text'        => 'User Subscription',
+            'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success'
         ],

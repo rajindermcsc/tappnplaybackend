@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('content')
 <div class="row justify-content-center">
-<div class="col-md-8">
+<div class="col-md-8 mt-5">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -88,10 +88,11 @@
 
                   <div class="form-group">
                     <label for="avatar">Profile Picture</label>
-                    <input type="file" class="form-control" id="avatar" name="avatar">
+                    <input type="file" class="form-control preview" id="avatar" name="avatar" onchange="previewpic(this);">
                      @error('avatar')
                     <p class="error">{{ $message }}</p>
                      @enderror
+                     <img id="preview" src="" alt="preview image" class="preview mt-3" style="max-height: 80px;">
                   </div>
                   
                 </div>

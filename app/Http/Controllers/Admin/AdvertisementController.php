@@ -1,10 +1,11 @@
 <?php
-
+ 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Advertisement;
+use Illuminate\Support\Facades\Validator;
 
 class AdvertisementController extends Controller
 {
@@ -52,7 +53,7 @@ class AdvertisementController extends Controller
             $postdata = $request->input();
             $insertdata = [
                 'title'=> $postdata['title'],
-                'image' => $postdata['image'],
+                // 'image' => $postdata['image'],
                 'description'  => $postdata['description'],
                 'link' => $postdata['link']
             ];
@@ -65,7 +66,7 @@ class AdvertisementController extends Controller
             }
             
             $users = Advertisement::create($insertdata);
-             return redirect()->route('admin.adds.create')->with('success',"Insert successfully");
+             return redirect()->route('admin.adds')->with('success',"Data inserted successfully");
         }
     }
 
@@ -77,7 +78,7 @@ class AdvertisementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data['user'] = Advertisement::find($id);
+        $data['adds'] = Advertisement::find($id);
         return view ( 'admin.adds.edit', $data );
     }
 
@@ -94,20 +95,20 @@ class AdvertisementController extends Controller
         $adds = Advertisement::find($id);
         $rules = [
             'title' => 'required',
-            'image' => 'required',
+            // 'image' => 'required',
             'description'  => 'required',
             'link' => 'required'
         ];
 
         $validator = Validator::make($request->all(),$rules);
         if ($validator->fails()) {
-            return redirect()->route('admin.adds.edit')->withInput()->withErrors($validator);
+            return redirect()->back()->withInput()->withErrors($validator);
         }else{
                
             $postdata = $request->input();
             $updatedata = [
                 'title'=> $postdata['title'],
-                'image' => $postdata['image'],
+                // 'image' => $postdata['image'],
                 'description'  => $postdata['description'],
                 'link' => $postdata['link']
             ];
@@ -118,9 +119,10 @@ class AdvertisementController extends Controller
                 $image->move(public_path('adds'), $name);
                 $updatedata['image'] = $name;
             }
-            
+
+
             $adds->update($updatedata);
-             return redirect()->route('admin.adds.edit')->with('success',"updated successfully");
+             return redirect()->route('admin.adds')->with('success',"Data updated successfully");
         }
     }
 
@@ -136,10 +138,10 @@ class AdvertisementController extends Controller
         
        if ( !empty($adds->id) ) {
             $adds->delete();
-           return redirect()->route('admin.users')->with('success', "Record deleted successfully");
+           return redirect()->route('admin.adds')->with('success', "Record deleted successfully");
         } 
         else{
-            return redirect()->route('admin.users')->with('error' , "Record not deleted");
+            return redirect()->route('admin.adds')->with('error' , "Record not deleted");
         }
     }
 }

@@ -1,8 +1,8 @@
 @extends('adminlte::page')
 
 @section('content')
-<div class="row">
-	<div class="col-md-12">
+<div class="row justify-content-center">
+	<div class="col-md-12 mt-5">
 		@include('message')
 	</div>
 	<div class="col-md-6">
@@ -38,9 +38,9 @@
 				      <td>
 				      	<a href="{{route('admin.user.show', $user->id)}}" class="btn btn-default btn-sm">View</a>
 				      	<a href="{{ route( 'admin.user.destroy', $user->id ) }}" class="btn btn-danger btn-sm">Delete</a>
-				      	<a class="btn btn-success btn-sm">Active</a>
-				      	<a class="btn btn-info btn-sm">Verified</a>
-				      	<a class="btn btn-danger btn-sm">Approved User</a>
+				      	<a class="btn btn-success btn-sm active-button" data-id= "{{$user->id}}">Active</a>
+				      	<a class="btn btn-info btn-sm verified-button" data-verify = "{{$user->id}}">Verified</a>
+				      	<a class="btn btn-danger btn-sm approve-button" data-approve="{{$user->id}}">Approved User</a>
 				      </td>
 				    </tr>
 				    @endforeach
@@ -59,5 +59,59 @@
 @section('js')
 	<script type="text/javascript">
 	    $('.datatable-listing').DataTable();
+	</script>
+
+	<script type="">
+		$(document).ready(function(){
+		$(".active-button").click(function()
+		{   var selectedid = $(this).attr('data-id');
+		     // console.log(selectedid);
+			 $.ajax({
+		          url: "{{route('admin.user.active')}}",
+		 	     type:"POST",
+			      data:{"_token": "{{ csrf_token() }}", 'id': selectedid},
+                   cache: false,
+                 success:function(response){
+
+                       }
+		    })
+		})	
+		})
+	</script>
+
+	<script type="">
+		$(document).ready(function(){
+		$(".verified-button").click(function()
+		{   var verifiedid = $(this).attr('data-verify');
+		     // console.log(selectedid);
+			 $.ajax({
+		          url: "{{route('admin.user.verified')}}",
+		 	     type:"POST",
+			      data:{"_token": "{{ csrf_token() }}", 'id': verifiedid},
+                   cache: false,
+                 success:function(response){
+
+                       }
+		    })
+		})	
+		})
+	</script>
+
+	<script type="">
+		$(document).ready(function(){
+		$(".approve-button").click(function()
+		{   var approveid = $(this).attr('data-approve');
+		     // console.log(selectedid);
+			 $.ajax({
+		          url: "{{route('admin.user.approved')}}",
+		 	     type:"POST",
+			      data:{"_token": "{{ csrf_token() }}", 'id': approveid},
+                   cache: false,
+                 success:function(response){
+
+                       }
+		    })
+		})	
+		})
 	</script>
 @stop

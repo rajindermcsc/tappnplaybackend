@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('content')
 <div class="row justify-content-center">
-<div class="col-md-8">
+<div class="col-md-8 mt-5">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -88,15 +88,13 @@
 
                   <div class="form-group">
                     <label for="avatar">Profile Picture</label>
-                    <input type="file" class="form-control" id="avatar" name="avatar">
+                    <input type="file" class="form-control preview" id="avatar" name="avatar" onchange="previewpic(this);">
                      @error('avatar')
-                    <p class="error">{{ $message }}</p>
+                      <p class="error">{{ $message }}</p>
                      @enderror
+                     <img id="preview" src="http://placehold.it/180" alt="preview image" class="preview mt-3" style="max-height: 80px;">
                   </div>
-                  <div class="form-group">
-                  <img id="preview" src="http://placehold.it/180" 
-                      alt="preview image" style="max-height: 250px;">
-              </div>
+                  
                   
                 </div>
                 <!-- /.card-body -->
@@ -108,29 +106,5 @@
             </div>  
           </div>
         </div> 
-
-           <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
- 
-            <script type="text/javascript">
-      
-              $(document).ready(function (e) {
- 
-   
-              $('#avatar').change(function(){
-            
-                   let reader = new FileReader();
- 
-                       reader.onload = (e) => { 
- 
-                     $('#preview').attr('src', e.target.result); 
-                                             }
- 
-                     reader.readAsDataURL(this.files[0]); 
-   
-                         });
-   
-                        });
- 
-              </script>
 
           @stop

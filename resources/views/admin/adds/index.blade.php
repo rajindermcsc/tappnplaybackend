@@ -1,15 +1,15 @@
 @extends('adminlte::page')
 
 @section('content')
-<div class="row">
-	<div class="col-md-12">
+<div class="row justify-content-center">
+	<div class="col-md-12 mt-5">
 		@include('message')
 	</div>
 	<div class="col-md-6">
 		<h4>Advertisements Listing</h4>
 	</div>
 	<div class="col-md-6">
-		<a href="{{ route('admin.adds.create') }}" class="btn btn-primary float-right">Add New Advertisement</a>
+		<a href="{{ route('admin.adds.create') }}" class="btn btn-primary float-right">Add New</a>
 	</div>
 
 	<div class="col-md-12 mt-2">
@@ -19,9 +19,9 @@
 			  <thead>
 			    <tr>
 			      <th scope="col">Title</th>
-			      <th scope="col">Image</th>
 			      <th scope="col">Description</th>
 			      <th scope="col">Link</th>
+			      <th scope="col">Image</th>
 			      <th scope="col">Action</th>
 			    </tr>
 			  </thead> 
@@ -30,9 +30,9 @@
 				  	@foreach($adds as $add)
 				    <tr>
 				      <td>{{ $add->title }}</td>
-				      <td>{{ $add->description }}</td>
+				      <td>{{ substr($add->description, 0, 50)  }}...</td>
 				      <td>{{ $add->link }}</td>
-				      <td>{{ $add->image }}</td>
+				      <td><img src="{{asset('adds/'.$add->image)}}" width="100" height="100"></td>
 				      <td>
 				      	<a href="{{route('admin.adds.edit', $add->id)}}" class="btn btn-default btn-sm">Edit</a>
 				      	<a href="{{ route( 'admin.adds.destroy', $add->id ) }}" class="btn btn-danger btn-sm">Delete</a>
