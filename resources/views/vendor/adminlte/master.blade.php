@@ -92,6 +92,8 @@
         <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
+
+
     @endif
 
     {{-- Livewire Script --}}
@@ -102,7 +104,8 @@
             <livewire:scripts />
         @endif
     @endif
-
+    
+    <script src="{{ asset('js/custom.js')}}" type="text/javascript"></script>
     {{-- Custom Scripts --}}
     @yield('adminlte_js')
 

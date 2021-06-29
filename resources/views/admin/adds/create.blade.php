@@ -2,6 +2,7 @@
 @section('content')
 <div class="row justify-content-center">
 <div class="col-md-8">
+          @include('message');
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -37,14 +38,12 @@
 
                   <div class="form-group">
                     <label for="image">Advertisement Image:</label>
-                    <input type="file" class="form-control" name="image">
+                    <input type="file" class="form-control" name="image" id="image" onchange="preview(this);">
                      @error('image')
-                    <p class="error">{{ $message }}</p>
+                        <p class="error">{{ $message }}</p>
                      @enderror
-                  </div>
-                  <div class="form-group">
-                    <img id="preview" src="http://placehold.it/180" 
-                      alt="preview image" style="max-height: 250px;">
+                     <img id="preview" src="http://placehold.it/180" 
+                      alt="preview image" class="preview" style="max-height: 100px;">
                   </div>
                   
                 </div>
@@ -57,29 +56,4 @@
             </div>  
           </div>
         </div> 
-
-           <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
- 
-            <script type="text/javascript">
-      
-              $(document).ready(function (e) {
- 
-   
-              $('#avatar').change(function(){
-            
-                   let reader = new FileReader();
- 
-                       reader.onload = (e) => { 
- 
-                     $('#preview').attr('src', e.target.result); 
-                                             }
- 
-                     reader.readAsDataURL(this.files[0]); 
-   
-                         });
-   
-                        });
- 
-              </script>
-
-          @stop
+@stop

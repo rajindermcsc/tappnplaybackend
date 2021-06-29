@@ -31,8 +31,11 @@ Route::group([ 'middleware' => ['auth'], 'prefix'=>'admin' ], function () {
     Route::post('user/store', "Admin\UsersController@store")->name('admin.user.store');
     Route::get('user/edit/{id}', "Admin\UsersController@edit")->name('admin.user.edit');
     Route::get('user/show/{id}', "Admin\UsersController@show")->name('admin.user.show');
-    Route::post('user/update/{id}', "Admin\UsersController@update")->name('admin.user.update');;
+    Route::post('user/update/{id}', "Admin\UsersController@update")->name('admin.user.update');
     Route::get('user/destroy/{id}', "Admin\UsersController@destroy")->name('admin.user.destroy');
+    Route::post('user/active', "Admin\UsersController@active")->name('admin.user.active');
+     Route::post('user/verified', "Admin\UsersController@verified")->name('admin.user.verified');
+      Route::post('user/approved', "Admin\UsersController@approved")->name('admin.user.approved');
 
 
 
