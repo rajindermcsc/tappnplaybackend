@@ -239,16 +239,10 @@ return [
         //     'icon' => 'fas fa-fw fa-lock',
         // ],
         [
-            'text'        => 'Account Settings',
-            'url'         => '#',
+            'text'        => 'Dashboard',
+            'url'         => 'admin/dashboard',
             'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
-            'submenu' => [
-                [
-                    'text' => 'Change Password',
-                    'url'  => 'change-password',
-                ]
-            ]
+            'label_color' => 'success'
         ],
         [
             'text'        => 'Users',
@@ -267,6 +261,18 @@ return [
             'url'         => 'admin/pages',
             'icon'        => 'far fa-fw fa-file',
             'label_color' => 'success'
+        ],
+        [
+            'text'        => 'Account Settings',
+            'url'         => '#',
+            'icon'        => 'far fa-fw fa-file',
+            'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Change Password',
+                    'url'  => 'change-password',
+                ]
+            ]
         ],
        
       

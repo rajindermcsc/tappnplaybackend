@@ -46,7 +46,7 @@
 
             {{-- Main Content --}}
             <div class="content">
-                <div class="{{ config('adminlte.classes_content') ?: $def_container_class }} mt-5">
+                <div class="{{ config('adminlte.classes_content') ?: $def_container_class }}">
                     @yield('content')
                 </div>
             </div>

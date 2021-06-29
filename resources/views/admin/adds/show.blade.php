@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="row">
-          <div class="col-md-4 col-sm-6 col-12">
+<div class="row justify-content-center">
+          <div class="col-md-4 col-sm-6 col-12 mt-5">
             <div class="info-box">
               
               <div class="info-box-content">

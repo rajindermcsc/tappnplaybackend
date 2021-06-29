@@ -1,8 +1,8 @@
 @extends('adminlte::page')
 
 @section('content')
-<div class="row">
-	<div class="col-md-12">
+<div class="row justify-content-center">
+	<div class="col-md-12 mt-5">
 		@include('message')
 	</div>
 	<div class="col-md-6">
