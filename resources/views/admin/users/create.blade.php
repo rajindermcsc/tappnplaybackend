@@ -88,11 +88,11 @@
 
                   <div class="form-group">
                     <label for="avatar">Profile Picture</label>
-                    <input type="file" class="form-control" id="avatar" name="avatar" onchange="preview(this);">
+                    <input type="file" class="form-control preview" id="avatar" name="avatar" onchange="previewpic(this);">
                      @error('avatar')
                       <p class="error">{{ $message }}</p>
                      @enderror
-                     <img id="preview" src="" alt="preview image" class="preview" style="max-height: 100px;">
+                     <img id="preview" src="http://placehold.it/180" alt="preview image" class="preview mt-3" style="max-height: 80px;">
                   </div>
                   
                   

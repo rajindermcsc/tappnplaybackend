@@ -1,5 +1,6 @@
 @extends('adminlte::page')
 @section('content')
+
 <div class="row justify-content-center">
 <div class="col-md-8 mt-5">
           @include('message');
@@ -38,12 +39,12 @@
 
                   <div class="form-group">
                     <label for="image">Advertisement Image:</label>
-                    <input type="file" class="form-control" name="image" id="image" onchange="preview(this);">
+                    <input type="file" class="form-control" name="image" id="image" onchange="previewpic(this);">
                     @error('image')
                       <p class="error">{{ $message }}</p>
                     @enderror
                     <img id="preview" src="{{asset('adds/'.$adds->image)}}" 
-                      alt="preview image" class="preview" style="max-height: 100px;">
+                      alt="preview image" class="preview mt-3" style="max-height: 80px;" />
                   </div>
                   
                 </div>
@@ -56,5 +57,4 @@
             </div>  
           </div>
         </div> 
-
           @stop

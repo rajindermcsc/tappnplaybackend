@@ -38,12 +38,12 @@
 
                   <div class="form-group">
                     <label for="image">Advertisement Image:</label>
-                    <input type="file" class="form-control" name="image" id="image" onchange="preview(this);">
+                    <input type="file" class="form-control preview" name="image" id="image" onchange="previewpic(this);">
                      @error('image')
                         <p class="error">{{ $message }}</p>
                      @enderror
                      <img id="preview" src="http://placehold.it/180" 
-                      alt="preview image" class="preview" style="max-height: 100px;">
+                      alt="preview image" class="preview mt-3" style="max-height: 80px;">
                   </div>
                   
                 </div>
