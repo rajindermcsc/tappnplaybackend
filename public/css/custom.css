@@ -1,1 +1,19 @@
 .error{color: red;}
+.filelist{display: block;width: 100%;margin: 3px;}
+.filelist .imageThumb {
+  max-height: 75px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+.filelist .preview-file {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.filelist .remove {
+  display: block;
+  background: #ccc;
+  color: red;
+  text-align: center;
+  cursor: pointer;
+}

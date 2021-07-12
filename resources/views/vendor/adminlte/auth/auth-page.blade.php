@@ -26,6 +26,10 @@
             </a>
         </div>
 
+        <div class="auth_header_heading">
+            @yield('auth_header_heading')
+        </div>
+
         {{-- Card Box --}}
         <div class="card {{ config('adminlte.classes_auth_card', 'card-outline card-primary') }}">
 

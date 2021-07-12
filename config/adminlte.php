@@ -2,7 +2,7 @@
 
 return [
 
-    /*
+    /* 
     |--------------------------------------------------------------------------
     | Title
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => 'TappNPlay',
+    'logo' => '&nbsp;',
     'logo_img' => 'images/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -241,13 +241,13 @@ return [
         [
             'text'        => 'Dashboard',
             'url'         => 'admin/dashboard',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'far fa fa-home',
             'label_color' => 'success'
         ],
         [
-            'text'        => 'Users',
+            'text'        => 'User Management',
             'url'         => 'admin/users',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'far fa fa-users',
             'label_color' => 'success'
         ],
         [
@@ -259,13 +259,19 @@ return [
         [
             'text'        => 'Subscription Management',
             'url'         => 'admin/subscriptions',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'far fa fa-credit-card',
+            'label_color' => 'success'
+        ],
+        [
+            'text'        => 'Preference Management',
+            'url'         => 'admin/preferences',
+            'icon'        => 'far fa fa-snowflake',
             'label_color' => 'success'
         ],
         [
             'text'        => 'Account Settings',
             'url'         => '#',
-            'icon'        => 'far fa-fw fa-file',
+            'icon'        => 'far fa fa-cogs',
             'label_color' => 'success',
             'submenu' => [
                 [
@@ -274,7 +280,12 @@ return [
                 ]
             ]
         ],
-       
+        [
+            'text'        => 'Logout',
+            'url'         => 'logout',
+            'icon'        => 'fa fa-fw fa-power-off',
+            'label_color' => 'success'
+        ],
       
     ],
 

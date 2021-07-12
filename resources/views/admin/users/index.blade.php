@@ -4,6 +4,8 @@
 <div class="row justify-content-center">
 	<div class="col-md-12 mt-5">
 		@include('message')
+
+
 	</div>
 	<div class="col-md-6">
 		<h4>Users Listing</h4>
@@ -37,10 +39,28 @@
 				      <td>{{ !empty($user->last_login_at)?$user->last_login_at:'N/A' }}</td>
 				      <td>
 				      	<a href="{{route('admin.user.show', $user->id)}}" class="btn btn-default btn-sm">View</a>
-				      	<a href="{{ route( 'admin.user.destroy', $user->id ) }}" class="btn btn-danger btn-sm">Delete</a>
-				      	<a class="btn btn-success btn-sm active-button" data-id= "{{$user->id}}">Active</a>
-				      	<a class="btn btn-info btn-sm verified-button" data-verify = "{{$user->id}}">Verified</a>
-				      	<a class="btn btn-danger btn-sm approve-button" data-approve="{{$user->id}}">Approved User</a>
+				      	<a href="{{ route( 'admin.user.destroy', $user->id ) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to Delete?');">Delete</a>
+				      	<a class="btn btn-sm isactive-btn {{ ($user->IsActive)?'btn-success':'btn-danger' }}" data-id= "{{$user->id}}" data-status="{{$user->IsActive}}" onclick="return confirm('Are you sure?');">
+				      		@if($user->IsActive)
+				      			Active
+				      		@else
+				      			Inactive
+				      		@endif
+				      		</a>
+
+				      	<a class="btn  btn-sm  isverified-btn  {{ ($user->IsProfileVerified)?' btn-success':'btn-danger' }}" data-id="{{$user->id}}" data-status="{{$user->IsProfileVerified}}"onclick="return confirm('Are you sure?');">
+				      	@if($user->IsProfileVerified)
+				      			Verified
+				      		@else
+				      			UnVerified
+				      		@endif
+				      </a>
+				      	<a class="btn  btn-sm isapprove-btn {{ ($user->IsApproved)?' btn-success':'btn-danger' }}" data-id="{{$user->id}}" data-status="{{$user->IsApproved}}"onclick="return confirm('Are you sure ?');">
+				      	@if($user->IsApproved)
+				      			Approved 
+				      		@else
+				      			UnApproved 
+				      		@endif</a>
 				      </td>
 				    </tr>
 				    @endforeach
@@ -58,60 +78,85 @@
  
 @section('js')
 	<script type="text/javascript">
-	    $('.datatable-listing').DataTable();
-	</script>
+	   	$('.datatable-listing').DataTable();
 
-	<script type="">
-		$(document).ready(function(){
-		$(".active-button").click(function()
-		{   var selectedid = $(this).attr('data-id');
-		     // console.log(selectedid);
-			 $.ajax({
-		          url: "{{route('admin.user.active')}}",
-		 	     type:"POST",
-			      data:{"_token": "{{ csrf_token() }}", 'id': selectedid},
-                   cache: false,
-                 success:function(response){
+		$(".isactive-btn").click(function(){   
+			var ele = $(this);
+			var user_id = $(this).data('id');
+			var IsActive = $(this).data('status');
+			$.ajax({
+		         url: "{{route('admin.user.active')}}",
+		 	   type:"POST",
+			   data:{"_token": "{{ csrf_token() }}", user_id: user_id, IsActive:IsActive},
+                 	   success:function(response){
+                 	   	if(response.user.IsActive){
+                 	   		ele.text('Active');
+                 	   		ele.addClass('btn-success').removeClass('btn-danger');
+                 	   		$('.msg-box .js-alert').show().find('.text-msg').html('User Active Succesfully!');
+                 	   	}else{
+                 	   		ele.text('Inactive');
+                 	   		ele.addClass('btn-danger').removeClass('btn-success');
+                 	   		$('.msg-box .js-alert').show().find('.text-msg').html('User Inactive Succesfully!');
+                 	   	}
+                     }
+		    });
+		});	
 
-                       }
-		    })
-		})	
-		})
-	</script>
 
-	<script type="">
-		$(document).ready(function(){
-		$(".verified-button").click(function()
-		{   var verifiedid = $(this).attr('data-verify');
-		     // console.log(selectedid);
-			 $.ajax({
-		          url: "{{route('admin.user.verified')}}",
-		 	     type:"POST",
-			      data:{"_token": "{{ csrf_token() }}", 'id': verifiedid},
-                   cache: false,
-                 success:function(response){
 
-                       }
-		    })
-		})	
-		})
-	</script>
+		$(".isverified-btn").click(function(){   
+			var ele = $(this);
+			var user_id = $(this).data('id');
+			var IsProfileVerified = $(this).data('status');
+			$.ajax({
+		         url: "{{route('admin.user.verified')}}",
+		 	   type:"POST",
+			   data:{"_token": "{{ csrf_token() }}", user_id: user_id, IsProfileVerified:IsProfileVerified},
+                 	   success:function(response){
+                 	   	if(response.user.IsProfileVerified){
+                 	   		ele.text('Verified');
+                 	   		ele.addClass('btn-success').removeClass('btn-danger');
+                 	   		$('.msg-box .js-alert').show().find('.text-msg').html('User Verified Succesfully!');
+                 	   	}else{
+                 	   		ele.text('UnVerified');
+                 	   		ele.addClass('btn-danger').removeClass('btn-success');
+                 	   		$('.msg-box .js-alert').show().find('.text-msg').html('User UnVerified Succesfully!');
+                 	   	}
+                     }
+		    });
+		});
 
-	<script type="">
-		$(document).ready(function(){
-		$(".approve-button").click(function()
-		{   var approveid = $(this).attr('data-approve');
-		     // console.log(selectedid);
-			 $.ajax({
-		          url: "{{route('admin.user.approved')}}",
-		 	     type:"POST",
-			      data:{"_token": "{{ csrf_token() }}", 'id': approveid},
-                   cache: false,
-                 success:function(response){
 
-                       }
-		    })
-		})	
-		})
+
+
+		$(".isapprove-btn").click(function(){   
+			var ele = $(this);
+			var user_id = $(this).data('id');
+			var IsApproved = $(this).data('status');
+			$.ajax({
+		         url: "{{route('admin.user.approved')}}",
+		 	   type:"POST",
+			   data:{"_token": "{{ csrf_token() }}", user_id: user_id, IsApproved:IsApproved},
+                 	   success:function(response){
+                 	   	if(response.user.IsApproved){
+                 	   		ele.text('Approved');
+                 	   		ele.addClass('btn-success').removeClass('btn-danger');
+                 	   		$('.msg-box .js-alert').show().find('.text-msg').html('User Approved Succesfully!');
+                 	   	}else{
+                 	   		ele.text('UnApproved');
+                 	   		ele.addClass('btn-danger').removeClass('btn-success');
+                 	   		$('.msg-box .js-alert').show().find('.text-msg').html('User UnApproved Succesfully!');
+                 	   	}
+                     }
+		    });
+		});		
+
+
+
+
+
+
+
+
 	</script>
 @stop

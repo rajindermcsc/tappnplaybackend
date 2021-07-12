@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\Block;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable, SoftDeletes;
 
@@ -23,7 +25,15 @@ class User extends Authenticatable
         'password',
         'avatar',
         'gender',
-        'last_login_at'
+        'IsActive',
+        'IsApproved',
+        'IsProfileVerified',
+        'preference',
+        'location',
+        'latitude',
+        'longitude',
+        'timezone',
+        'IsProfileVisible'
     ];
 
     /**
@@ -45,8 +55,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getJWTIdentifier() {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims() {
+        return [];
+    }    
 
     public function role(){
         return $this->hasOne(Role::class, 'id', 'role_id');
+    }
+
+    public function blockusers(){
+        return $this->belongsToMany(Block::class, 'user_id', 'id');
+    }
+
+    public function preferences(){
+        return $this->belongsToMany('App\Models\Preference','user_preference','user_id', 'preference_id');
     }
 }

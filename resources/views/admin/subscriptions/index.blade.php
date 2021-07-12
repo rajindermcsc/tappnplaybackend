@@ -37,7 +37,7 @@
 				      	<form action="{{ route( 'subscriptions.destroy', $subscription->id ) }}" method="post">
 				      		@csrf
                     @method('DELETE')
-				      	<input class="btn btn-danger btn-sm" type="submit" value="delete">
+				      	<input class="btn btn-danger btn-sm delete_button" type="submit" value="delete">
 				      	</form>
 				      </td>
 				    </tr>
@@ -55,7 +55,11 @@
 @stop
  
 @section('js')
-	<script type="text/javascript">
-	    $('.datatable-listing').DataTable();
-	</script>
+<script type="text/javascript">
+$(".delete_button").click(function(){
+return confirm("Do you want to delete this ?");
+});
+
+$('.datatable-listing').DataTable();
+</script>
 @stop

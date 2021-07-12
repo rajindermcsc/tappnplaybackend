@@ -19,6 +19,7 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('logout', 'Auth\LoginController@logout');
 
 
 // Admin Routes Backend
@@ -38,6 +39,8 @@ Route::group([ 'middleware' => ['auth'], 'prefix'=>'admin' ], function () {
 
     Route::resource('subscriptions', "Admin\SubscriptionController");
 
+    Route::resource('preferences', "Admin\PreferenceController");
+
 
 
 
@@ -49,9 +52,12 @@ Route::group([ 'middleware' => ['auth'], 'prefix'=>'admin' ], function () {
     Route::post('advertisement/update/{id}', "Admin\AdvertisementController@update")->name('admin.adds.update');;
     Route::get('advertisement/destroy/{id}', "Admin\AdvertisementController@destroy")->name('admin.adds.destroy');
 
-    Route::post('user/active', "Admin\UsersController@active")->name('admin.user.active');
-    Route::post('user/verified', "Admin\UsersController@verified")->name('admin.user.verified');
-    Route::post('user/approved', "Admin\UsersController@approved")->name('admin.user.approved');
+
+    
+
+    Route::post('user/active', "Admin\UsersController@IsActive")->name('admin.user.active');
+    Route::post('user/verified', "Admin\UsersController@IsVerified")->name('admin.user.verified');
+    Route::post('user/approved', "Admin\UsersController@IsApproved")->name('admin.user.approved');
 
 });
 

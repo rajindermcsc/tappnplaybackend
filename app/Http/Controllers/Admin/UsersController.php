@@ -8,8 +8,9 @@ use \Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Photo;
 
-
+    
 class UsersController extends Controller
 {
     /**
@@ -50,7 +51,7 @@ class UsersController extends Controller
             'longitude' => 'required',
             'timezone' => 'required',
             'password' => 'required',
-            // 'avatar' => 'required'
+            'terms_check' => 'required'
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -72,24 +73,50 @@ class UsersController extends Controller
                 'latitude' => $postdata['latitude'],
                 'longitude' => $postdata['longitude'],
                 'timezone' => $postdata['timezone'],
-                'password' => bcrypt($postdata['password'])
-                // 'avatar' =>  $data['avatar']
+                'password' => bcrypt($postdata['password']),
+                'terms_check' =>  $postdata['terms_check']
             ];
 
-               if ($request->hasFile('avatar')) 
-               {
-                    $image = $request->file('avatar');
-                    $name = time().'.'.$image->getClientOriginalExtension();
-                    $image->move(public_path('users'), $name);
-                    $insertdata['avatar'] = $name;
-               }
+           if ($request->hasFile('avatar')){
+                $image = $request->file('avatar');
+                $name = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('users'), $name);
+                $insertdata['avatar'] = $name;
+           }
 
-               // dd($data);
             
-            $users = User::create($insertdata);
-             return redirect()->route('admin.user.create')->with('success',"Insert successfully");
-         
+            $user = User::create($insertdata);
 
+
+            if ($request->hasFile('photos')){
+                $photos = $request->file('photos');
+                $path = public_path('uploads/users');
+                foreach( $photos as  $photo ){
+                    $filename = time().$photo->getClientOriginalName();
+                    $photo->move($path, $filename);
+                    $photodata['user_id'] = $user->id;
+                    $photodata['standard'] = $filename;
+                    $photodata['is_private'] = 0;
+                    Photo::create($photodata);
+                }
+            }
+
+            if ($request->hasFile('private_photos')){
+                $private_photos = $request->file('private_photos');
+                $path = public_path('uploads/users');
+                foreach( $private_photos as  $photo ){
+                    $filename = time().$photo->getClientOriginalName();
+                    $photo->move($path, $filename);
+                    $privatephotodata['user_id'] = $user->id;
+                    $privatephotodata['standard'] = $filename;
+                    $privatephotodata['is_private'] = 1;
+                    Photo::create($privatephotodata);
+                }
+            }
+
+            
+            return redirect()->route('admin.users')->with('success',"User created successfully!");
+         
         }
     }
 
@@ -152,28 +179,57 @@ class UsersController extends Controller
         }
     }
 
-    public function active(Request $request)
-    { 
-         $data = $request->all();
-         $id = $data['id'];
-          // print_r($id);die();
+    public function IsActive(Request $request){ 
+        $user_id = $request->user_id;
+        $user = User::where('id', $user_id)->first();
+        if($user->IsActive == 1 ){
+            $IsActive = 0;
+            $user->update([ 'IsActive'=> $IsActive ]);
+        return response()->json(['status'=>$IsActive, 'message'=>'User is Deactivated successfully.','user'=>$user ]);
+
+        }else{
+            $IsActive = 1;
+            $user->update([ 'IsActive'=> $IsActive ]);
+        return response()->json(['status'=>$IsActive, 'message'=>'User is Activated successfully.','user'=>$user ]);
+            
+        }
+
+        
+    }
+
+    public function IsVerified(Request $request){ 
+        $user_id = $request->user_id;
+        $user = User::where('id', $user_id)->first();
+        if($user->IsProfileVerified == 1 ){
+            $IsProfileVerified = 0;
+            $user->update([ 'IsProfileVerified'=> $IsProfileVerified ]);
+        return response()->json(['status'=>$IsProfileVerified, 'message'=>'User is UnVerified successfully.','user'=>$user ]);
+
+        }else{
+            $IsProfileVerified = 1;
+            $user->update([ 'IsProfileVerified'=> $IsProfileVerified ]);
+        return response()->json(['status'=>$IsProfileVerified, 'message'=>'User is Verified successfully.','user'=>$user ]);
+            
+        }
        
     }
 
-     public function verified(Request $request)
-    { 
-         $verify = $request->all();
-         $id = $verify['id'];
-          // print_r($id);die();
-       
-    }
 
+    public function IsApproved(Request $request){ 
+         $user_id = $request->user_id;
 
-     public function approved(Request $request)
-    { 
-         $approve = $request->all();
-         $id = $approve['id'];
-          print_r($id);die();
+         $user = User::where('id', $user_id)->first();
+        if($user->IsApproved == 1 ){
+            $IsApproved = 0;
+            $user->update([ 'IsApproved'=> $IsApproved ]);
+        return response()->json(['status'=>$IsApproved, 'message'=>'User is UnApproved successfully.','user'=>$user ]);
+
+        }else{  
+            $IsApproved = 1;
+            $user->update([ 'IsApproved'=> $IsApproved ]);
+        return response()->json(['status'=>$IsApproved, 'message'=>'User is Approved successfully.','user'=>$user ]);
+            
+        }
        
     }    
 }

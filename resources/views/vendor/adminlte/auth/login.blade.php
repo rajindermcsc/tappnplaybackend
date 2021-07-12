@@ -17,10 +17,13 @@
     @php( $register_url = $register_url ? url($register_url) : '' )
     @php( $password_reset_url = $password_reset_url ? url($password_reset_url) : '' )
 @endif
-
-@section('auth_header', __('adminlte::adminlte.login_message'))
+@section('auth_header_heading')
+    <h3 class="text-center text-white">WELCOME TO TAPP N PLAY</h3>
+@stop
 
 @section('auth_body')
+    
+    
     <form action="{{ $login_url }}" method="post">
         {{ csrf_field() }}
 
@@ -94,3 +97,22 @@
         </p>
     @endif
 @stop
+
+<style type="text/css">
+    .login-page, .register-page {
+        background: url(/images/login_bg.jpg) no-repeat top center;
+    }
+    .login-page .login-logo img{
+        height: 130px;
+    }
+    .login-page .card-primary.card-outline {
+        border-top: 3px solid #000;
+    }
+    .login-page .card-footer a {
+        color: #666;
+    }
+    .login-page .card-footer .btn-primary {
+        background-color: #666;
+        border-color: #666;
+    }
+</style>
