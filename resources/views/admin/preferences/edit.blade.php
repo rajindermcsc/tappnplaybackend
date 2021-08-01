@@ -15,7 +15,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" value="{{$preference->title}}"name="title" placeholder="Enter Icon name">
+                    <input type="text" class="form-control" id="name" value="{{$preference->Title}}"name="title" placeholder="Enter Icon name">
                      @error('title')
                     <p class="error">{{ $message }}</p>
                      @enderror     

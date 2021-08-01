@@ -28,9 +28,9 @@
 			  	@if( $subscriptions->isNotEmpty() )
 				  	@foreach($subscriptions as $subscription)
 				    <tr>
-				      <td>{{ $subscription->name }}</td>
-				      <td>{{ $subscription->price }}</td>
-				      <td>{{ $subscription->description }}</td>
+				      <td>{{ $subscription->SubscriptionName }}</td>
+				      <td>{{ $subscription->Subscriptionprice }}</td>
+				      <td>{{ $subscription->Subscriptiondescription }}</td>
 				      <td>
 				      	<a href="{{route('subscriptions.edit', $subscription->id)}}" class="btn btn-default btn-sm">Edit</a>
 				      	<a href="{{route('subscriptions.show', $subscription->id)}}" class="btn btn-success btn-sm">Show</a>

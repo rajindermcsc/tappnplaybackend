@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 @section('content')
 <div class="row justify-content-center">
-<div class="col-md-8">
+<div class="col-md-8 mt-5">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add User</h3>
+                <h3 class="card-title">Add Preference</h3>
               </div>
               <!-- /.card-header --> 
               <!-- form start -->

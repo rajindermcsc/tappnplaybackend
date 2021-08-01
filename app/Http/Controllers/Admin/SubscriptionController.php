@@ -55,9 +55,9 @@ class SubscriptionController extends Controller
   
 
             $subscription = Subscription::create([
-                 'name' => $request->input('name'),
-                 'price' => $request->input('price'),
-                 'description' => $request->input('description')
+                 'SubscriptionName' => $request->input('name'),
+                 'Subscriptionprice' => $request->input('price'),
+                 'Subscriptiondescription' => $request->input('description')
                  
              ]);
            
@@ -125,9 +125,9 @@ class SubscriptionController extends Controller
 
 
         $subscription = Subscription::findOrFail($id);
-        $subscription->name = $request->get('name');
-        $subscription->price = $request->get('price');
-        $subscription->description = $request->get('description');
+        $subscription->SubscriptionName = $request->get('name');
+        $subscription->Subscriptionprice = $request->get('price');
+        $subscription->Subscriptiondescription = $request->get('description');
         $subscription->save();
      
            return redirect()->route('subscriptions.index')

@@ -10,7 +10,7 @@
           
           <div class="info-box-content">
             <span class="info-box-text">Name</span>
-            <span class="info-box-number">{{$subscription->name}}</span>
+            <span class="info-box-number">{{$subscription->SubscriptionName}}</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -23,7 +23,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Price</span>
-            <span class="info-box-number">{{$subscription->price}}</span>
+            <span class="info-box-number">{{$subscription->Subscriptionprice}}</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -35,7 +35,7 @@
  
           <div class="info-box-content">
             <span class="info-box-text">Description</span>
-            <span class="info-box-number">{{ $subscription->description }}</span>
+            <span class="info-box-number">{{ $subscription->Subscriptiondescription }}</span>
           </div>
           <!-- /.info-box-content -->
         </div>

@@ -16,14 +16,14 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{$adds->title}}">
+                    <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{$adds->Title}}">
                     @error('title')
                       <p class="error">{{ $message }}</p>
                     @enderror     
                   </div>
                   <div class="form-group">
                     <label for="link">Advertisement Link (URL):</label>
-                    <input type="link" class="form-control" name="link" placeholder="Enter link" value="{{$adds->link}}">
+                    <input type="link" class="form-control" name="link" placeholder="Enter link" value="{{$adds->AdertisementLink}}">
                     @error('link')
                       <p class="error">{{ $message }}</p>
                     @enderror
@@ -31,7 +31,7 @@
 
                   <div class="form-group">
                     <label for="description">Description:</label>
-                    <textarea name="description" class="form-control">{{$adds->description}}</textarea>
+                    <textarea name="description" class="form-control">{{$adds->Description}}</textarea>
                     @error('description')
                       <p class="error">{{ $message }}</p>
                     @enderror
@@ -43,7 +43,7 @@
                     @error('image')
                       <p class="error">{{ $message }}</p>
                     @enderror
-                    <img id="preview" src="{{asset('adds/'.$adds->image)}}" 
+                    <img id="preview" src="{{asset('adds/'.$adds->AdvertisementImage)}}" 
                       alt="preview image" class="preview mt-3" style="max-height: 80px;" />
                   </div>
                   

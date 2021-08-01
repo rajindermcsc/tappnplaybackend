@@ -9,5 +9,5 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','reported_user_id','reason'];
+    protected $fillable = ['UserId','ReportedUserQuickBloxId','ReportedUserId'];
 }

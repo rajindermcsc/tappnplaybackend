@@ -15,14 +15,14 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Subscription name" value="{{$subscription->name}}">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Subscription name" value="{{$subscription->SubscriptionName}}">
                      @error('name')
                     <p class="error">{{ $message }}</p>
                      @enderror     
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Price</label>
-                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter Subscription Price" value="{{$subscription->price}}">
+                    <input type="text" class="form-control" id="price" name="price" placeholder="Enter Subscription Price" value="{{$subscription->Subscriptionprice}}">
                      @error('price')
                     <p class="error">{{ $message }}</p>
                      @enderror
@@ -30,7 +30,7 @@
 
                   <div class="form-group">
                     <label for="description">Description:</label>
-                    <textarea name="description" placeholder="Enter Subscription Description" class="form-control">{{$subscription->description}}</textarea>
+                    <textarea name="description" placeholder="Enter Subscription Description" class="form-control">{{$subscription->Subscriptiondescription}}</textarea>
                     @error('description')
                       <p class="error">{{ $message }}</p>
                     @enderror

@@ -4,47 +4,76 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use App\Mail\SendMailreset;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
+use Validator;
+
 
 class ForgotPasswordController extends Controller
 {
-    public function forgot() {
-        $credentials = request()->validate(['email' => 'required|email']);
+    public function forgot(Request $request)
+{
+if(!$this->validateEmail($request->email)) {
+return $this->failedResponse();
 
-        Password::sendResetLink($credentials);
+}
+$this->send($request->email);
+return $this->successResponse();
 
-        return response()->json([
-            'message' => 'Reset password link sent on your email id.'
-        ], 201);
+}
 
+public function send($email)
+{
+    $token= $this->createToken($email);
+    Mail::to($email)->send(new SendMailreset($token,$email));
+}
+
+public function createToken($email)
+{
+$oldToken=DB::table('password_resets')->where('email',$email)->first();
+    
+    if($oldToken){
+        return $oldToken->token;
     }
+$token= Str::random(40);
+$this->saveToken($token,$email);
+return $token;
 
+}
 
+public function saveToken($token,$email) 
+{
+    DB::table('password_resets')->insert([
+        'email' =>$email,
+        'token' =>$token,
+        'created_at' =>Carbon::now()
+    ]);
 
-    public function reset() {
+}
 
-        $credentials = request()->validate([
-            'email' => 'required|email',
-            'token' => 'required|string',
-            'password' => 'required|string|confirmed'
-        ]);
-        //die('hell');
-        $reset_password_status = Password::reset($credentials, function ($user, $password) {
-            $user->password = Hash::make($password);
-            $user->save();
-        });
+public function validateEmail($email)
+{
+    return !!User::where('email',$email)->first();
+}
 
-        if ($reset_password_status == Password::INVALID_TOKEN) {
-            return response()->json(["message" => "Invalid token provided"], 400);
-        }
+public function failedResponse()
+{
+    return response()->json([
+        'error'=>'Email does\'t found on our database'    ],Response::HTTP_NOT_FOUND);
+}
 
-        return response()->json(["message" => "Password has been successfully changed"],201);
-    }
-       
-
+public function successResponse(){
+    return response()->json([
+        'data'=>'Reset Email is send succcessfully, pleasse check your inbox' ],Response::HTTP_OK);
+}
 
 
 }

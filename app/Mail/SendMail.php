@@ -7,18 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class SendMaillllreset extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $token;
+    public $email;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($token,$email)
     {
         //
+        $this->token =$token;
+        $this->email =$email;
     }
 
     /**
@@ -28,6 +31,9 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('Email.resetPassword');
+        return $this->markdown('Email.passwordReset')->with([
+        'token' => $this->token,
+        'email' => $this->email
+        ]);
     }
 }

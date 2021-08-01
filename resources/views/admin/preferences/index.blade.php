@@ -27,20 +27,13 @@
 			  	@if( $preferences->isNotEmpty() )
 				  	@foreach($preferences as $preference)
 				    <tr>
-				      <td>{{ $preference->title }}</td>
-				      <td><img style="height:250px;width:250px;" src="{{URL::to('/')}}/preferences/{{ $preference->icon }}" /></td>
+				      <td>{{ $preference->Title }}</td>
+				      <td><img style="width:50px;" src="{{URL::to('/')}}/preferences/{{ $preference->icon }}" /></td>
 				      <td>
 				      	<a href="{{route('preferences.edit', $preference->id)}}" class="btn btn-default btn-sm">Edit</a>
 				      	<a href="{{route('preferences.show', $preference->id)}}" class="btn btn-default btn-sm">View</a>
-				      	<form action="{{ route( 'preferences.destroy', $preference->id ) }}" method="post">
-				      		@csrf
-                    @method('DELETE')
-				      	<input class="btn btn-danger btn-sm delete_button" onclick="return confirm('Are you sure ?');" type="submit" value="delete">
-				      	</form>
-				      </td>
-				      	
-				    </tr>
-				    @endforeach
+						<a href="{{ route( 'preferences.destroy', $preference->id ) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure to Delete?');">Delete</a>    
+					@endforeach               
 				@else
 					<tr>
 						<td colspan="4">N/A</td>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Subscription;
+use App\Models\UserSubscription;
 use Validator;
 
 class SubscriptionController extends Controller
@@ -31,12 +32,59 @@ class SubscriptionController extends Controller
     {
 
         $subscriptions= Subscription::all();
-        return response()->json([
-            'message' => 'Subscriptions Listed successfully',
-            'subscriptions' => $subscriptions
-        ], 201);
+
+         return response()->json(['data'=>$subscriptions,'StatusCode'=> 200, 'Message'=> 'Subscriptions Listed successfully','user' =>'']);
 
         
+    }
+
+
+
+
+    public function updateSubscription(Request $request){
+
+        if(Auth::check()){
+             $insertdata = [
+                'UserId'=> $request->UserId,
+                'PaymentTransactionId' => $request->TransactionId,
+                'SubscriptionTypeId'  => $request->SubscriptionTypeId,
+                'Amount' => $request->Amount,
+                'SubscribedFrom' => $request->SubscribedFrom,
+                'SubscriptionStartDate' => $request->SubscriptionStartDate,
+                'SubscriptionEndDate' => $request->SubscriptionEndDate
+            ];
+
+            $subscriptionexist = UserSubscription::where('UserId', $request->UserId)->first();
+
+            if( !empty($subscriptionexist->id) ){
+                 $updatedata = [
+                    'PaymentTransactionId' => $request->TransactionId,
+                    'SubscriptionTypeId'  => $request->SubscriptionTypeId,
+                    'Amount' => $request->Amount,
+                    'SubscribedFrom' => $request->SubscribedFrom,
+                    'SubscriptionStartDate' => $request->SubscriptionStartDate,
+                    'SubscriptionEndDate' => $request->SubscriptionEndDate
+                ];
+                $update = UserSubscription::where('id', $subscriptionexist->id)->update($updatedata);
+            }else{
+                $update = UserSubscription::create($insertdata);
+            }
+
+            $user = User::where('id', $request->UserId )->first();
+            return response()->json([
+                'StatusCode' => 200,
+                'Message' => 'success',
+                'User' => $user
+            ]);
+        }else{
+            return response()->json([
+                'StatusCode' => 401,
+                'Message' => 'Unauthenticated',
+            ], 400);
+        }
+
+
+
     }
     
 

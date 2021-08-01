@@ -9,6 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Models\Block;
+use App\Models\Setting;
+use App\Models\UserDevice;
+use App\Models\Subscription;
+use App\Models\Photo;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -20,20 +24,37 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'avatar',
-        'gender',
+        'Name',
+        'Email',
+        'Password',
+        'JoiningAs',
+        'ProfilePicture',
+        'ProfilePictureThumbnail',
+        'QuickBloxId',
+        'LastLoginAt',
+        'Location',
+        'Latitude',
+        'Longitude',
+        'Timezone',
         'IsActive',
-        'IsApproved',
+        'IsSystemAdmin',
         'IsProfileVerified',
-        'preference',
-        'location',
-        'latitude',
-        'longitude',
-        'timezone',
-        'IsProfileVisible'
+        'IsUserAccountApproved',
+        'IsProfileVisible',
+        'QRCodeImage',
+        'QRCodeImageThumbnail',
+        'ProfileVisibilityEnabled',
+        'LocationVisibilityEnabled',
+        'TransactionId',
+        'Subscribedfrom',
+        'SubscriptionTypeId',
+        'Amount',
+        'SubscriptionStartDate',
+        'SubscriptionEndDate',
+        'IsSubscriptionExpired',
+        'SubscriptionUpdatedOn',
+        'VerificationCode',
+        'terms_check'
     ];
 
     /**
@@ -42,7 +63,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password',
+        'Password',
         'remember_token',
     ];
 
@@ -53,7 +74,51 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'ProfileVisibilityEnabled' => 'boolean',
+        'LocationVisibilityEnabled' => 'boolean',
+        'IsProfileVerified' => 'boolean',
+        'IsUserAccountApproved' => 'boolean',
+        'IsProfileVisible' => 'boolean',
+        'IsActive' => 'boolean',
+        'IsSystemAdmin' => 'boolean',
+        'terms_check' => 'boolean'
+
     ];
+
+
+   /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        return $this->Password;
+    }
+
+    // public function getNameAttribute($value)
+    // {
+    //     return $this->Name; 
+    // }
+
+    /**
+     * Get the e-mail address where password reset links are sent.
+     *
+     * @return string
+     */
+    public function getEmailForPasswordReset()
+    {
+        return $this->Email;
+    }
+
+
+
+    // public function getEmailAttribute($value)
+    // {
+    //     return $this->Email; 
+    // }
+
+
 
     public function getJWTIdentifier() {
         return $this->getKey();
@@ -72,11 +137,45 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
-    public function blockusers(){
-        return $this->belongsToMany(Block::class, 'user_id', 'id');
+
+    public function settings() {
+        return $this->hasMany(Setting::class,'UserId','id');
     }
 
-    public function preferences(){
-        return $this->belongsToMany('App\Models\Preference','user_preference','user_id', 'preference_id');
+    public function devices() {
+        return $this->hasOne(UserDevice::class,'UserId','id');
     }
+
+    public function subscriptions() {
+        return $this->hasOne(UserSubscription::class, 'UserId', 'id');
+    }
+
+    public function photos() {
+        return $this->hasMany(Photo::class,'UserId','id');
+    }
+
+    public function privatephotos() {
+        return $this->hasMany(Photo::class, 'UserId','id')->where('IsPrivatePhoto','=', 1);;
+    }
+ 
+
+
+    public function preferences(){
+        return $this->belongsToMany('App\Models\Preference','user_preference','UserId', 'PreferenceId');
+    }
+
+
+    public function friends(){
+        return $this->hasMany(Friend::class,'UserId','id');
+    }
+
+
+
+    // public function received() {
+    //     return $this->hasMany(Friend::class, 'FriendUserId', 'id');
+    // }
+
+    // public function sent() {
+    //     return $this->hasMany(Friend::class,'UserId', 'id');
+    // }
 }

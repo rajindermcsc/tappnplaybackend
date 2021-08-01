@@ -8,7 +8,7 @@
               
               <div class="info-box-content">
                 <span class="info-box-text">Name</span>
-                <span class="info-box-number">{{$user->name}}</span>
+                <span class="info-box-number">{{$user->Name}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -21,7 +21,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Email</span>
-                <span class="info-box-number">{{$user->email}}</span>
+                <span class="info-box-number">{{$user->Email}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -33,7 +33,7 @@
      
               <div class="info-box-content">
                 <span class="info-box-text">Gender</span>
-                <span class="info-box-number">{{$user->gender}}</span>
+                <span class="info-box-number">{{$user->JoiningAs}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>

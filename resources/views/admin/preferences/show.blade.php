@@ -10,7 +10,7 @@
           
           <div class="info-box-content">
             <span class="info-box-text">Title</span>
-            <span class="info-box-number">{{$preference->title}}</span>
+            <span class="info-box-number">{{$preference->Title}}</span>
           </div>
           <!-- /.info-box-content -->
         </div>

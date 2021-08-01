@@ -10,7 +10,7 @@
           
           <div class="info-box-content">
             <span class="info-box-text">Name</span>
-            <span class="info-box-number">{{$user->name}}</span>
+            <span class="info-box-number">{{$user->Name}}</span>
           </div>
           <!-- /.info-box-content -->
         </div>
@@ -23,8 +23,8 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Email</span>
-            <span class="info-box-number"> @if( !is_null($user->email))
-              {{$user->email }}
+            <span class="info-box-number"> @if( !is_null($user->Email))
+              {{$user->Email }}
               @else
               NA
               @endif
@@ -41,8 +41,8 @@
           <div class="info-box-content">
             <span class="info-box-text">Joining As</span>
             <span class="info-box-number">
-              @if( !is_null($user->gender))
-              {{ ucfirst($user->gender) }}
+              @if( !is_null($user->JoiningAs))
+              {{ ucfirst($user->JoiningAs) }}
               @else
               NA
               @endif
@@ -60,8 +60,8 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Preference</span>
-            <span class="info-box-number">@if( !is_null($user->preference))
-              {{$user->preference}}
+            <span class="info-box-number">@if( !is_null($user->preferences))
+              {{ $user->preferences}}
               @else
               NA
               @endif</span>
@@ -77,8 +77,8 @@
           <div class="info-box-content">
             <span class="info-box-text">Location</span>
             <span class="info-box-number">
-              @if( !is_null($user->location))
-              {{$user->location}}
+              @if( !is_null($user->Location))
+              {{$user->Location}}
               @else
               NA
               @endif
@@ -95,8 +95,8 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Time Zone</span>
-            <span class="info-box-number"> @if( !is_null($user->timezone))
-              {{$user->timezone}}
+            <span class="info-box-number"> @if( !is_null($user->Timezone))
+              {{$user->Timezone}}
               @else
               NA
               @endif</span>
@@ -114,8 +114,8 @@
           <div class="info-box-content">
             <span class="info-box-text">Longitude</span>
             <span class="info-box-number">
-              @if( !is_null($user->longitude))
-              {{$user->longitude}}
+              @if( !is_null($user->Longitude))
+              {{$user->Longitude}}
               @else
               NA
               @endif</span>
@@ -132,8 +132,8 @@
           <div class="info-box-content">
             <span class="info-box-text">Latitude</span>
             <span class="info-box-number">
-              @if( !is_null($user->latitude))
-              {{$user->latitude}}
+              @if( !is_null($user->Latitude))
+              {{$user->Latitude}}
               @else
               NA
               @endif</span>

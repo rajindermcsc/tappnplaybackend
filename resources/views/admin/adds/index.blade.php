@@ -29,10 +29,10 @@
 			  	@if( $adds->isNotEmpty() )
 				  	@foreach($adds as $add)
 				    <tr>
-				      <td>{{ $add->title }}</td>
-				      <td>{{ substr($add->description, 0, 50)  }}...</td>
-				      <td>{{ $add->link }}</td>
-				      <td><img src="{{asset('adds/'.$add->image)}}" width="100" height="100"></td>
+				      <td>{{ $add->Title }}</td>
+				      <td>{{ substr($add->Description, 0, 50)  }}...</td>
+				      <td>{{ $add->AdertisementLink }}</td>
+				      <td><img src="{{asset('adds/'.$add->AdvertisementImage)}}" width="100" height="100"></td>
 				      <td>
 				      	<a href="{{route('admin.adds.edit', $add->id)}}" class="btn btn-default btn-sm">Edit</a>
 				      	<a href="{{ route( 'admin.adds.destroy', $add->id ) }}" class="btn btn-danger btn-sm">Delete</a>

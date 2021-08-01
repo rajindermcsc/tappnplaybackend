@@ -29,116 +29,81 @@ class BlocksController extends Controller
 
     public function blockUser(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required',
-            'block_user_id' => 'required',
+            
+            'BlockedUserId' => 'required',
+            'UserId' => 'required',
+
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['success'=> false, 'error'=> $validator->messages()], 401);
+
+        if($validator->fails()) {
+            return response()->json([
+                'StatusCode' => 400,
+                'Message' => $validator->messages(),
+            ]);
         }
 
 
-        $already_block_user =Block::where('user_id' ,'=',$request->user_id)->where('block_user_id' ,'=',$request->block_user_id)->first();
+        $already_block_user =Block::where('UserId' ,'=',$request->UserId)->where('BlockedUserId' ,'=',$request->BlockedUserId)->first();
       
             
-          if(!$already_block_user)
+          if($already_block_user)
 
             {
-                
-        $block_user= Block::create(['user_id'=> $request->user_id,
-          'block_user_id' => $request->block_user_id]);
-            
-            return response()->json([
-            'message' => 'User Blocked successfully'], 201);
-           
-            }
+            Block::where('UserId' ,'=',$request->UserId)->where('BlockedUserId' ,'=',$request->BlockedUserId)->delete();
+
+                return response()->json([
+            'Message' => 'User Unblocked Successfully',
+            'StatusCode' => 200
+        ]);
+
+
+         }
             else
             {
 
-             return response()->json([
-            'message' => 'User Already Blocked '], 201);
             
-            }  
-        }
-
-
-
-        public function blockUserList($user_id) {
-            // $user = JWTAuth::toUser($token);
-
-            // $user_id= JWTAuth::parseToken()->authenticate()->id;
-            // $user_id= Auth::user();
-            // dd($user_id);   
-            $block=Block::with('blockusers')->where('user_id',$user_id)->get();
+        $block_user= Block::create(['UserId'=> $request->UserId,
+          'BlockedUserId' => $request->BlockedUserId,'BlockedUserQuickBloxId'=> $request->BlockedUserQuickBloxId]);
+            
 
             return response()->json([
-                'status' => true,
-                'message' => 'Block User Listed Succesfully',
-                'block' => $block,
-            ], 201);
+            'Message' => 'User Blocked successfully',
+            'StatusCode' => 200
+        ]);
+           
+            
+           
+            }
+
 
         }
 
 
-    public function create()
-    {
-        //
-    }
+     
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        public function blockUserList() {
+            if( Auth::check() ){
+                $user_id = auth()->user()->id;
+                // $block = User::with('user')->where('user_id',$user_id)->get();
+                $block = Block::where('user_id',$user_id)->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+                return response()->json([
+                    'data' =>$block,
+                    'StatusCode' => 200,
+                    'Message' => 'Block User Listed Succesfully'
+                ]);
+            }else{
+                return response()->json([
+                    'StatusCode' => 401,
+                    'Message' => 'Unauthorized'
+                ]);
+            }
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

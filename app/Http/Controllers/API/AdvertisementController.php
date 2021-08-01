@@ -28,10 +28,13 @@ class AdvertisementController extends Controller
     {
 
     $advertisements= Advertisement::all();
-        return response()->json([
-            'message' => 'Advertisements Listed successfully',
-            'advertisements' => $advertisements
-        ], 201);
+
+          return response()->json([
+            'Message' => 'success',
+            'StatusCode' => '200',
+            'Advertisements'=>$advertisements,
+            
+          ]);
     }
 
 }

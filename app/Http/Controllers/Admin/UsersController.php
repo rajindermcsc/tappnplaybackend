@@ -20,7 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $list = User::all();
+        $list = User::with('settings')->get();
         return view('admin.users.index' , ['users'=>$list]);
     }
 
@@ -43,14 +43,14 @@ class UsersController extends Controller
     {    
 
         $rules = [
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'gender'  => 'required',
-            'location' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
-            'timezone' => 'required',
-            'password' => 'required',
+            'Name' => 'required',
+            'Email' => 'required|unique:users',
+            'JoiningAs'  => 'required',
+            'Location' => 'required',
+            'Latitude' => 'required',
+            'Longitude' => 'required',
+            'Timezone' => 'required',
+            'Password' => 'required',
             'terms_check' => 'required'
         ];
 
@@ -66,14 +66,14 @@ class UsersController extends Controller
             $postdata = $request->input();
 
             $insertdata = [
-                'name'=> $postdata['name'],
-                'email' => $postdata['email'],
-                'gender'  => $postdata['gender'],
-                'location' => $postdata['location'],
-                'latitude' => $postdata['latitude'],
-                'longitude' => $postdata['longitude'],
-                'timezone' => $postdata['timezone'],
-                'password' => bcrypt($postdata['password']),
+                'Name'=> $postdata['name'],
+                'Email' => $postdata['email'],
+                'JoiningAs'  => $postdata['gender'],
+                'Location' => $postdata['location'],
+                'Latitude' => $postdata['latitude'],
+                'Longitude' => $postdata['longitude'],
+                'Timezone' => $postdata['timezone'],
+                'Password' => bcrypt($postdata['password']),
                 'terms_check' =>  $postdata['terms_check']
             ];
 
@@ -94,9 +94,9 @@ class UsersController extends Controller
                 foreach( $photos as  $photo ){
                     $filename = time().$photo->getClientOriginalName();
                     $photo->move($path, $filename);
-                    $photodata['user_id'] = $user->id;
-                    $photodata['standard'] = $filename;
-                    $photodata['is_private'] = 0;
+                    $photodata['UserId'] = $user->id;
+                    $photodata['Standard'] = $filename;
+                    $photodata['IsPrivatePhoto'] = 0;
                     Photo::create($photodata);
                 }
             }
@@ -107,9 +107,9 @@ class UsersController extends Controller
                 foreach( $private_photos as  $photo ){
                     $filename = time().$photo->getClientOriginalName();
                     $photo->move($path, $filename);
-                    $privatephotodata['user_id'] = $user->id;
-                    $privatephotodata['standard'] = $filename;
-                    $privatephotodata['is_private'] = 1;
+                    $privatephotodata['UserId'] = $user->id;
+                    $privatephotodata['Standard'] = $filename;
+                    $privatephotodata['IsPrivatePhoto'] = 1;
                     Photo::create($privatephotodata);
                 }
             }
@@ -221,12 +221,12 @@ class UsersController extends Controller
          $user = User::where('id', $user_id)->first();
         if($user->IsApproved == 1 ){
             $IsApproved = 0;
-            $user->update([ 'IsApproved'=> $IsApproved ]);
+            $user->update([ 'IsUserAccountApproved'=> $IsApproved ]);
         return response()->json(['status'=>$IsApproved, 'message'=>'User is UnApproved successfully.','user'=>$user ]);
 
         }else{  
             $IsApproved = 1;
-            $user->update([ 'IsApproved'=> $IsApproved ]);
+            $user->update([ 'IsUserAccountApproved'=> $IsApproved ]);
         return response()->json(['status'=>$IsApproved, 'message'=>'User is Approved successfully.','user'=>$user ]);
             
         }

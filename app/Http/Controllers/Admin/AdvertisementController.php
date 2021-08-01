@@ -52,17 +52,17 @@ class AdvertisementController extends Controller
                
             $postdata = $request->input();
             $insertdata = [
-                'title'=> $postdata['title'],
+                'Title'=> $postdata['title'],
                 // 'image' => $postdata['image'],
-                'description'  => $postdata['description'],
-                'link' => $postdata['link']
+                'Description'  => $postdata['description'],
+                'AdertisementLink' => $postdata['link']
             ];
 
             if ($request->hasFile('image')){
                 $image = $request->file('image');
                 $name = time().'.'.$image->getClientOriginalExtension();
                 $image->move(public_path('adds'), $name);
-                $insertdata['image'] = $name;
+                $insertdata['AdvertisementImage'] = $name;
             }
             
             $users = Advertisement::create($insertdata);
@@ -107,17 +107,17 @@ class AdvertisementController extends Controller
                
             $postdata = $request->input();
             $updatedata = [
-                'title'=> $postdata['title'],
+                'Title'=> $postdata['title'],
                 // 'image' => $postdata['image'],
-                'description'  => $postdata['description'],
-                'link' => $postdata['link']
+                'Description'  => $postdata['description'],
+                'AdertisementLink' => $postdata['link']
             ];
 
             if ($request->hasFile('image')){
                 $image = $request->file('image');
                 $name = time().'.'.$image->getClientOriginalExtension();
                 $image->move(public_path('adds'), $name);
-                $updatedata['image'] = $name;
+                $updatedata['AdvertisementImage'] = $name;
             }
 
 

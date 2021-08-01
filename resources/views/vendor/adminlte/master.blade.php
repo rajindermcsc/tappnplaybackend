@@ -19,6 +19,9 @@
         @yield('title_postfix', config('adminlte.title_postfix', ''))
     </title>
 
+     <link rel="icon" href="https://thetappadmin.com/images/logo.png" sizes="16x16 32x32" type="image/png">
+
+
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
 

@@ -19,31 +19,39 @@ class PreferenceController extends Controller
     {
         $preferences= Preference::all();
         return response()->json([
-            'message' => 'Preferences Listed successfully',
+            'StatusCode' => 200,
+            'Message' => 'Preferences Listed successfully',
             'preferences' => $preferences
         ], 201);
     }
 
 
-    public function updateUserPreference(Request $request, $user_id){
-        $user = User::find($user_id);
+    public function updateUserPreference(Request $request){
+        if(Auth::check()){
+            $user_id = auth()->user();
+            $user = User::find($user_id);
 
-        if( !empty($request->preferences) ){
-            $user->preferences()->sync($request->preferences);
-            $userpreference = $user->preferences;
-            return response()->json([
-                'status' => true,
-                'message' => 'Preferences updated successfully',
-                'preferences' => $userpreference,
-                'user' => $user,
-            ], 201);
+            if( !empty($request->preferences) ){
+                $user->preferences()->sync($request->preferences);
+                $userpreference = $user->preferences;
+                return response()->json([
+                    'StatusCode' => 200,
+                    'Message' => 'Preferences updated successfully',
+                    'preferences' => $userpreference,
+                    'user' => $user,
+                ], 200);
+            }else{
+                return response()->json([
+                    'StatusCode' => 422,
+                    'Message' => 'Preferences unable to update'
+                ], 422);
+            }
         }else{
             return response()->json([
-                'status' => false,
-                'error' => 'Preferences unable to update'
+                'StatusCode' => 401,
+                'Message' => 'Unauthenticated',
             ], 400);
         }
-
         
     }
 

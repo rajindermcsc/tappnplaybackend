@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Block extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'block_user_id'];
+    protected $fillable = ['UserId','BlockedUserQuickBloxId','BlockedUserId'];
 
     
-    public function blockusers(){
-        return $this->belongsTo(User::class, 'block_user_id', 'id');
-    }    
+  
 
 }

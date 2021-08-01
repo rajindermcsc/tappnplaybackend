@@ -23,7 +23,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 
 // Admin Routes Backend
-Route::group([ 'middleware' => ['auth'], 'prefix'=>'admin' ], function () {
+Route::group([ 'middleware' => ['auth','web'], 'prefix'=>'admin' ], function () {
     Route::get('dashboard', 'Admin\AdminController@index')->name('admin.dashboard');
 
     // Users Routes Admin

@@ -10,10 +10,15 @@ class Advertisement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'image',
-        'description',
-        'link'
+        'Title',
+        'AdertisementImage',
+        'Description',
+        'AdertisementLink',
+        'IsActive'
     ];
+
+    protected $casts = [
+    'IsActive' => 'boolean',
+ ];
     
 }

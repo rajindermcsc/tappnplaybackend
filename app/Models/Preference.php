@@ -11,7 +11,7 @@ class Preference extends Model
 
 
     protected $fillable = [
-        'title',
+        'Title',
         'icon'
     ];
 

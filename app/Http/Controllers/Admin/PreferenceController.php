@@ -57,7 +57,7 @@ class PreferenceController extends Controller
   
 
             $preferences = Preference::create([
-                 'title' => $request->input('title'),
+                 'Title' => $request->input('title'),
                  'icon' => $iconname
                  
              ]);
@@ -129,7 +129,7 @@ class PreferenceController extends Controller
 
            $preferences = Preference::find($id);
             
-                 $preferences->title=$request->input('title');
+                 $preferences->Title=$request->input('title');
                  $preferences->icon=$iconname;
                  $preferences->save();
                             

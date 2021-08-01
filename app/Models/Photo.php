@@ -9,5 +9,12 @@ class Photo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','standard','thumbnail','is_private'];
+    protected $fillable = ['UserId','Standard','Thumbnail','IsPrivatePhoto'];
+
+
+public function user()
+{
+  return $this->belongsTo(User::class,'UserId','id');
+}
+
 }
